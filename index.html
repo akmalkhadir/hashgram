@@ -1,39 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>hashgramPwa</title>
-    <meta http-equiv=X-UA-Compatible content="IE=edge">
-    <meta name=description content="A progressive webapp">
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="PWA">
-    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
-    <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
-    <meta name="theme-color" content="#2F3BA2">
-  </head>
-  <body>
-    <div id="content">
-       <img src="images/yeoman.png" />
-       <p> Check the console for service worker logs and after sw is active this image will load even when you are offline! </p>
-      
-       <p class="custom-button">Enable Push Notifications:
-         <input id="turn-on-notification" type="checkbox" hidden="hidden" class="custom-input" data-checked="">
-         <label for="turn-on-notification" class="custom-checkbox"></label>
-       </p>
-       <button id="send-push" style="display:none">Send Push Notification</button>
+
+<head>
+  <meta charset="utf-8">
+  <title>#O HashGram</title>
+  <meta http-equiv=X-UA-Compatible content="IE=edge">
+  <meta name=description content="A Very Secure Chat App">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <!-- Bulma Version 0.7.2-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="./css/admin.css">
+
+  <!-- Images for Mobile Devices -->
+  <link rel="shortcut icon" type="image/png" href="./favicon.ico" />
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PWA">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
+  <meta name="theme-color" content="#2F3BA2">
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div class="sidebar_logo">
+      <img src="" alt="">
+      <h1 class="sidebar_logo_text"></h1>
     </div>
-  </body>
-  
-  <script src="/js/push.js"></script>
-  <script src="/js/app.js"></script>
+    <div class="sidebar_group_list">
+      <div class="sidebar_group_list_title">
+        <h3></h3>
+        <a href=""></a>
+      </div>
+      <ul>
+        <li><a href=""></a></li>
+      </ul>
+    </div>
+    <div class="sidebar_chat_list">
+      <div class="sidebar_chat_list_title">
+        <h3></h3>
+        <a href=""></a>
+      </div>
+      <ul>
+        <li><a href=""></a></li>
+      </ul>
+    </div>
+    <div class="sidebar_logout_wrapper">
+      <h3></h3>
+      <div class="logout_btn_wrapper"><button></button></div>
+    </div>
+  </div>
+  <div class="chat_window">
+    <div class="chat_window_title">
+      <h2></h2>
+      <img src="" alt="">
+    </div>
+    <ul class="chat_window_messages">
+      <li class="chat_messages_item">
+        <div class="user">
+          <img src="" alt="" class="user_avatar">
+          <p class="user_name"></p>
+        </div>
+        <p class="message_text"></p>
+      </li>
+    </ul>
+    <div class="chat_window_input">
+      <input type="text" class="message_text_input">
+      <div class="send_button"><button></button></div>
+    </div>
+
+  </div>
+
+  <script async type="text/javascript" src="./js/bulma.js"></script>
+</body>
+
 </html>
