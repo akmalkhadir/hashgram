@@ -1,39 +1,150 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>hashgramPwa</title>
-    <meta http-equiv=X-UA-Compatible content="IE=edge">
-    <meta name=description content="A progressive webapp">
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="PWA">
-    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
-    <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
-    <meta name="theme-color" content="#2F3BA2">
-  </head>
-  <body>
-    <div id="content">
-       <img src="images/yeoman.png" />
-       <p> Check the console for service worker logs and after sw is active this image will load even when you are offline! </p>
-      
-       <p class="custom-button">Enable Push Notifications:
-         <input id="turn-on-notification" type="checkbox" hidden="hidden" class="custom-input" data-checked="">
-         <label for="turn-on-notification" class="custom-checkbox"></label>
-       </p>
-       <button id="send-push" style="display:none">Send Push Notification</button>
+
+<head>
+  <meta charset="utf-8">
+  <title>#O HashGram</title>
+  <meta http-equiv=X-UA-Compatible content="IE=edge">
+  <meta name=description content="A Very Secure Chat App">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!-- Images for Mobile Devices -->
+  <link rel="shortcut icon" type="image/png" href="./favicon.ico" />
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PWA">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
+  <meta name="theme-color" content="#2F3BA2">
+</head>
+
+<body>
+  <div class="container">
+    <div class="columns">
+
+      <!--  Begin Sidebar -->
+
+      <aside class="menu sidebar column is-one-fifth">
+        <div class="sidebar_logo">
+          <img src="https://akmalkhadir.com/wp-content/uploads/2018/11/hashgram-logo.png" alt="">
+          <h1 class="sidebar_logo_text"></h1>
+        </div>
+        <div class="sidebar_group_list">
+          <div class="sidebar_group_list_title">
+            <p class="menu-label is-size-4">Chatroom</p>
+          </div>
+          <ul class="menu-list">
+            <li><a class="" href="">#MI6</a></li>
+            <li><a class="" href="">#MI5</a></li>
+            <li><a class="" href="">#GCHQ</a></li>
+            <li><a class="" href="">#CIA</a></li>
+            <li><a class="" href="">#NSA</a></li>
+            <li><a class="" href="">#cat-memes</a></li>
+          </ul>
+        </div>
+        <br>
+        <div class="sidebar_logout_wrapper">
+          <div class="logout_btn_wrapper has-text-centered"><button class="button is-dark">Logout</button></div>
+        </div>
+      </aside>
+
+      <!--  End Sidebar -->
+
+      <!--  Begin Chat Window -->
+
+      <div class="chat_window column">
+        <div class="chat_window_title level">
+          <h1 class="level-left title">#MI6</h1>
+          <img src="https://image.flaticon.com/icons/svg/26/26053.svg" alt="" class="image is-24x24 level-right">
+        </div>
+
+        <!--  Messages to be inserted dynamically -->
+
+        <div class="chat_window_messages box">
+          <article class="chat_messages_item media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://avatars1.githubusercontent.com/u/1881633?s=88&v=4" class="user_avatar">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p><strong class="user_name">Akmal Khadir</strong></p>
+                <p class="message_text">vdfjkbvjfdvbdfbvd vdksv dsc kn m5 43nkt hjf erkg rh t34. 543hjr 43 34nr j f4k 5h34r 3knr ;h23 r32nk 32;k rnk34;r 34n 4;3k 543nkr n34r3qnkr</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="chat_messages_item media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://avatars0.githubusercontent.com/u/20317665?s=400&v=4" class="user_avatar">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p><strong class="user_name">Sang Song</strong></p>
+                <p class="message_text"> fbre80p4ibtp 4f4b3pr348qrpbweufbBPUBR GR VREHPGREF ;FE FE;VEK;RFBUEWNFNJKBVCDS jbdfksafb BSD hlVbhlusdv;aD dvh;bc cHE;C HCC DJS; CHS;C </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="chat_messages_item media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://avatars1.githubusercontent.com/u/1881633?s=88&v=4" class="user_avatar">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p><strong class="user_name">Akmal Khadir</strong></p>
+                <p class="message_text">BIPJ jlo OVB HBjlvlh bjlV lj Nlbk VHLVlvlvHLJvhjvjh jLH Bjl :nnbJbljhjb bJLbJhbJ HJ bHJ; BJlb </p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <br>
+
+        <!--  User Typing Area -->
+        <div class="chat_window_input">
+          <article class="media">
+
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://avatars1.githubusercontent.com/u/1881633?s=88&v=4">
+              </p>
+            </figure>
+
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                  <textarea class="message_text_input textarea" placeholder="Type your secret message here..."></textarea>
+                </p>
+              </div>
+
+              <div class="field">
+                <p class="control">
+                  <button class="button send_button">Send Message</button>
+                </p>
+              </div>
+            </div>
+
+          </article>
+        </div>
+      </div>
+
+      <!--  End Chat Window -->
+
     </div>
-  </body>
-  
-  <script src="/js/push.js"></script>
-  <script src="/js/app.js"></script>
+  </div>
+</body>
+
 </html>
