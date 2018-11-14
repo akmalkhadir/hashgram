@@ -1,4 +1,4 @@
-let userId = 1
+let currentUserId = 2
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
@@ -11,6 +11,7 @@ const navbarChatButton = navbarButtons.querySelector('.create_new_chat_btn')
 const chatName = document.querySelector('#chatName')
 const chatWindow = document.querySelector('.chat_window')
 const chatWindowMessagesEl = document.querySelector('#chat_window_messages')
+const chatWindowInput = document.querySelector('#chat_window_input')
 
 // Modal (hidden elements)
 const createChatPopUp = document.querySelector('#createChatPopUp')
@@ -87,6 +88,7 @@ const renderMessages = messages => {
   chatName.innerText = localData.currentRoom.name
   messages.forEach(message => renderMessage(message))
 }
+
 // Helper functions
 // Clear chat window
 const clearChatWindow = () => {
@@ -96,12 +98,54 @@ const clearChatWindow = () => {
   <button class="button create_new_chat_btn">Create New</button>
   </div>
   `
+
   chatWindow
     .querySelector('.create_new_chat_btn')
     .addEventListener('click', event => {
       console.log(event)
       createChatPopUp.className += 'is-active'
     })
+}
+
+// Render Chat Window input
+
+const renderChatWindowInput = () => {
+  chatWindowInput.innerHTML = `
+  <article class="media">
+
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img src="https://api.adorable.io/avatars/128/${currentUserId}@adorable.io.png">
+      </p>
+    </figure>
+
+    <div class="media-content">
+      <div class="field">
+        <p class="control">
+          <textarea id="message_text_input" class="textarea" placeholder="Type your secret message here..."></textarea>
+        </p>
+      </div>
+
+      <div class="field">
+        <p class="control">
+          <button id="send_button" class="button">Send Message</button>
+        </p>
+      </div>
+    </div>
+  </article>
+  `
+
+  chatWindowInput.querySelector('#send_button').addEventListener('click', event => {
+    let messageText = chatWindowInput.querySelector('#message_text_input').value
+    let receiverId = localData.currentRoom.users.find(user => user.id !== currentUserId).id
+    let newMessage = {
+      sender: currentUserId,
+      receiver: receiverId,
+      chatroom: localData.currentRoomId,
+      message: messageText
+    }
+    createMessage(newMessage)
+  })
 }
 
 // Fetch chat room messages and render
@@ -111,11 +155,13 @@ const getChatroomData = () =>
       localData.currentRoom = chatroom
       localData.currentRoomMessages = chatroom.messages
       renderMessages(localData.currentRoomMessages)
+      renderChatWindowInput()
     })
 
 // Initial call on load
-getUser(userId).then(user => {
+getUser(currentUserId).then(user => {
   localData.currentUser = user
   localData.chatrooms = [...localData.currentUser.chatrooms]
   renderChatRoomListItems(localData.chatrooms)
+  clearChatWindow()
 })
