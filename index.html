@@ -32,27 +32,45 @@
 </head>
 
 <body>
-  <div class="container">
+  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <img src="https://akmalkhadir.com/wp-content/uploads/2018/11/hashgram-logo.png">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="mainNavbar" class="navbar-menu create_new_chat_btn">
+      <div class="navbar-start">
+        <a class="navbar-item create_new_chat_btn">
+          Create New Chat
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding: 20px;">
     <div class="columns">
 
       <!--  Begin Sidebar -->
 
       <aside class="menu sidebar column is-one-fifth">
-        <div class="sidebar_logo">
-          <img src="https://akmalkhadir.com/wp-content/uploads/2018/11/hashgram-logo.png" alt="">
-          <h1 class="sidebar_logo_text"></h1>
-        </div>
         <div class="sidebar_group_list">
           <div class="sidebar_group_list_title">
-            <p class="menu-label is-size-4">Chatroom</p>
+            <p class="menu-label is-size-4">Chatrooms</p>
           </div>
           <ul class="sidebar_chatroom_list menu-list">
-          
+
           </ul>
         </div>
         <br>
         <div class="sidebar_logout_wrapper">
-          <div class="logout_btn_wrapper has-text-centered"><button class="button is-dark">Logout</button></div>
+          <div class="logout_btn_wrapper has-text-centered"><button class="button is-dark"><strong>Logout</strong></button></div>
         </div>
       </aside>
 
@@ -60,15 +78,41 @@
 
       <!--  Begin Chat Window -->
 
+      <div id="createChatPopUp" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Create a new chat</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="field">
+              <label class="label">Chat Name</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g my-secret-chat">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Participant</label>
+              <div class="control">
+                <input class="input" type="email" placeholder="e.g Sang Song">
+              </div>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">Create Chat</button>
+          </footer>
+        </div>
+      </div>
+
       <div class="chat_window column">
         <div class="chat_window_title level">
           <h1 class="level-left title">#MI6</h1>
           <img src="https://image.flaticon.com/icons/svg/26/26053.svg" alt="" class="image is-24x24 level-right">
         </div>
+        <div id="chat_window_messages" class="box">
 
-        <!--  Messages to be inserted dynamically -->
-
-        <div class="chat_window_messages box">
+          <!--  Messages to be inserted dynamically -->
           <article class="chat_messages_item media">
             <figure class="media-left">
               <p class="image is-64x64">
