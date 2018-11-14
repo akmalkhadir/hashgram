@@ -47,7 +47,7 @@ const renderChatRoomListItem = chatroom => {
     )
     console.log(localData.currentRoomId)
     chatWindowMessagesEl.innerHTML = ``
-    getChatroomData().then(renderMessages(localData.currentRoomMessages))
+    getChatroomData()
   })
 }
 
@@ -104,10 +104,12 @@ const clearChatWindow = () => {
 
 // Fetch chat room messages and render
 const getChatroomData = () =>
-  getChatroom(localData.currentRoomId).then(chatroom => {
-    localData.currentRoom = chatroom
-    localData.currentRoomMessages = chatroom.messages
-  })
+  getChatroom(localData.currentRoomId)
+    .then(chatroom => {
+      localData.currentRoom = chatroom
+      localData.currentRoomMessages = chatroom.messages
+      renderMessages(localData.currentRoomMessages)
+    })
 
 // Initial call on load
 getUser(userId).then(user => {
