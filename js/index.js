@@ -8,6 +8,7 @@ const navbarButtons = document.querySelector('#mainNavbar')
 const navbarChatButton = navbarButtons.querySelector('.create_new_chat_btn')
 
 // Chat Window Elements
+const chatName = document.querySelector('#chatName')
 const chatWindow = document.querySelector('.chat_window')
 const chatWindowMessagesEl = document.querySelector('#chat_window_messages')
 
@@ -82,9 +83,10 @@ const renderMessage = message => {
 }
 
 // Render all Messages
-const renderMessages = messages =>
+const renderMessages = messages => {
+  chatName.innerText = localData.currentRoom.name
   messages.forEach(message => renderMessage(message))
-
+}
 // Helper functions
 // Clear chat window
 const clearChatWindow = () => {
