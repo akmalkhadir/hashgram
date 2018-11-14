@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script data-main="./js/singleKeyEncryption" src="./js/require.js"></script>
+    <script defer src="./js/index.js"></script>
+</head>
+<body>
+    <div id="staging">
+        <div id="private-key">
+
+        </div>
+        <div id="public-key">
+
+        </div>
+        <button id="generateKeys">Generate Keys</button>
+        <div id="messages">
+            <h1>Encrypted Messages</h1>
+            <ul id="encrypted-messages">
+                
+
+            </ul>
+            <h1>Decrypted Messages</h1>
+            <ul id="decrypted-messages">
+                
+    
+            </ul>
+        </div>
+        <form id="message-form">
+            <input type="text" id="message-input"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <button id="decryptMessage">decrypt</button>
+    </div>
+</body>
+</html>
