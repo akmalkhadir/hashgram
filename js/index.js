@@ -1,4 +1,4 @@
-let currentUserId = 7
+let currentUserId = 40
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
@@ -60,6 +60,7 @@ submitNewChat.addEventListener('click', event => {
         renderChatRoomListItems(localData.chatrooms)
         localData.currentRoomId = localData.chatrooms.slice(-1)[0].id
         getChatroomData()
+        toggleModal()
       })
     })
 })
