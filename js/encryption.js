@@ -14,7 +14,7 @@
 // const generateSignKey = () => nacl.sign.keyPair();
 // const generateBoxKey = () => nacl.box.keyPair();
 const generateSignKey = () => {
-    fetch("https://us-central1-hashgram-222609.cloudfunctions.net/generateSignKey?=AIzaSyC1zs303mCxvhdhlRLnzyMQ7DdIappyWVs").then(res => res.json())
+    fetch("https://us-central1-hashgram-222609.cloudfunctions.net/generateSignKey").then(res => res.json())
     .then(res => secretKey = res.split(","))
 }
 
