@@ -89,26 +89,25 @@
             <div class="field">
               <label class="label">Chat Name</label>
               <div class="control">
-                <input class="input" type="text" placeholder="e.g my-secret-chat">
+                <input id="chat_name_input"class="input" type="text" placeholder="e.g my-secret-chat" required>
               </div>
             </div>
             <label class="label">Participant</label>
             <div class="field has-addons">
               <div class="control is-expanded">
-                <input id="participant_name" class="input" type="email" placeholder="e.g Sang Song">
+                <input id="participant_name" class="input" type="email" placeholder="e.g Sang Song" required>
               </div>
               <div class="select">
                 <p class="control">
                   <select id="participant_dropdown">
-                    <option>Select dropdown</option>
-                    <option>With options</option>
+                    <option>Search for a user</option>
                   </select>
                 </p>
               </div>
             </div>
           </section>
           <footer class="modal-card-foot">
-            <button class="button is-success">Create Chat</button>
+            <button id="submit_new_chat" class="button is-success">Create Chat</button>
           </footer>
         </div>
       </div>
@@ -118,7 +117,7 @@
           <h1 id="chatName" class="level-left title"></h1>
           <img src="https://image.flaticon.com/icons/svg/26/26053.svg" alt="" class="image is-24x24 level-right">
         </div>
-        <div id="chat_window_messages" class="box">
+        <div id="chat_window_messages" class="box" style="overflow: scroll; height: 400px;">
 
           <!--  Messages to be inserted dynamically -->
 

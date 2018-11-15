@@ -1,4 +1,4 @@
-let currentUserId = 1
+let currentUserId = 7
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
@@ -16,7 +16,10 @@ const chatWindowInput = document.querySelector('#chat_window_input')
 // Modal (hidden elements)
 const createChatPopUp = document.querySelector('#createChatPopUp')
 const closeChatPopUp = document.querySelector('#closeChatPopUp')
-const partcipantNameInput = document.querySelector('#participant_name')
+const participantNameInput = document.querySelector('#participant_name')
+const participantDropdown = document.querySelector('#participant_dropdown')
+const chatNameInput = document.querySelector('#chat_name_input')
+const submitNewChat = createChatPopUp.querySelector('#submit_new_chat')
 
 // LocaL Data
 let localData = {
@@ -24,7 +27,8 @@ let localData = {
   chatrooms: [],
   currentRoomId: 0,
   currentRoom: {},
-  currentRoomMessages: []
+  currentRoomMessages: [],
+  otherUsers: []
 }
 
 // Global Event Listeners
@@ -38,6 +42,26 @@ navbarChatButton.addEventListener('click', event => {
 
 closeChatPopUp.addEventListener('click', () => {
   toggleModal()
+})
+
+submitNewChat.addEventListener('click', event => {
+  let chatNameInputValue = chatNameInput.value
+  let otherParticipantId = localData.otherUsers.find(user => user.name === participantDropdown.value).id
+  let newChatroom = {
+    name: chatNameInputValue,
+    users: `${currentUserId}, ${otherParticipantId}`
+  }
+  createChatroom(newChatroom)
+    .then(() => {
+      getUser(currentUserId).then(user => {
+        localData.currentUser = user
+        localData.chatrooms = [...localData.currentUser.chatrooms]
+
+        renderChatRoomListItems(localData.chatrooms)
+        localData.currentRoomId = localData.chatrooms.slice(-1)[0].id
+        getChatroomData()
+      })
+    })
 })
 
 // Sidebar - Chatroom Names
@@ -63,6 +87,7 @@ const renderChatRoomListItem = chatroom => {
 
 // Render all Chatrooms Name
 const renderChatRoomListItems = chatrooms => {
+  chatRoomListEl.innerHTML = ``
   chatrooms.forEach(chatroom => renderChatRoomListItem(chatroom))
 }
 
@@ -93,7 +118,8 @@ const renderMessage = message => {
 
 // Render all Messages
 const renderMessages = messages => {
-  chatName.innerText = localData.currentRoom.name
+  chatName.innerText = `#${localData.currentRoom.name}`
+  chatWindowMessagesEl.innerHTML = ``
   messages.forEach(message => renderMessage(message))
 }
 
@@ -155,9 +181,11 @@ const renderChatWindowInput = () => {
       message: messageText
     }
     createMessage(newMessage)
-    chatWindowInput.querySelector('#message_text_input').value = ``
-    chatWindowMessagesEl.innerHTML = ``
-    getChatroomData()
+      .then(() => {
+        chatWindowInput.querySelector('#message_text_input').value = ``
+        chatWindowMessagesEl.innerHTML = ``
+        getChatroomData()
+      })
   })
 }
 
@@ -171,18 +199,33 @@ const getChatroomData = () =>
       renderChatWindowInput()
     })
 
-// Render partcipant selection dynamically for modal
+// Render participant selection dynamically for modal
 
-partcipantNameInput.addEventListener('keyup', () => {
-  console.log(partcipantNameInput.value)
-  let filter = partcipantNameInput.value
+participantNameInput.addEventListener('keyup', () => {
+  console.log(participantNameInput.value)
+  let filter = participantNameInput.value
   const filteredNames = localData.otherUsers.filter(
     user => user.name.toLowerCase().includes(filter.toLowerCase())
-  )
-  updateList(filteredPokemons)
+  ).map(user => user.name)
+  renderDropdown(filteredNames)
 })
 
+const renderDropdown = (names) => {
+  participantDropdown.innerHTML = ``
+  names.forEach(name => {
+    addNameToList(name)
+  })
+}
 
+const addNameToList = name => {
+  let newSelection = document.createElement('option')
+  newSelection.innerText = name
+  participantDropdown.appendChild(newSelection)
+}
+
+participantDropdown.addEventListener('change', event => {
+  let chosenParticipantName = event.target.value
+})
 
 // Initial call on load
 getUser(currentUserId).then(user => {
@@ -190,4 +233,8 @@ getUser(currentUserId).then(user => {
   localData.chatrooms = [...localData.currentUser.chatrooms]
   renderChatRoomListItems(localData.chatrooms)
   clearChatWindow()
+  getUsers().then(users => {
+    let allUsers = users
+    localData.otherUsers = allUsers.filter(user => user.id !== currentUserId)
+  })
 })
