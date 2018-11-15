@@ -83,7 +83,7 @@
         <div class="modal-card">
           <header class="modal-card-head">
             <p class="modal-card-title">Create a new chat</p>
-            <button class="delete" aria-label="close"></button>
+            <button id="closeChatPopUp" class="delete" aria-label="close"></button>
           </header>
           <section class="modal-card-body">
             <div class="field">
@@ -92,10 +92,18 @@
                 <input class="input" type="text" placeholder="e.g my-secret-chat">
               </div>
             </div>
-            <div class="field">
-              <label class="label">Participant</label>
-              <div class="control">
-                <input class="input" type="email" placeholder="e.g Sang Song">
+            <label class="label">Participant</label>
+            <div class="field has-addons">
+              <div class="control is-expanded">
+                <input id="participant_name" class="input" type="email" placeholder="e.g Sang Song">
+              </div>
+              <div class="select">
+                <p class="control">
+                  <select id="participant_dropdown">
+                    <option>Select dropdown</option>
+                    <option>With options</option>
+                  </select>
+                </p>
               </div>
             </div>
           </section>
@@ -119,7 +127,7 @@
 
         <!--  User Typing Area -->
         <div id="chat_window_input">
-          
+
         </div>
       </div>
 

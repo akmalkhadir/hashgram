@@ -1,4 +1,4 @@
-let currentUserId = 2
+let currentUserId = 1
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
@@ -15,6 +15,8 @@ const chatWindowInput = document.querySelector('#chat_window_input')
 
 // Modal (hidden elements)
 const createChatPopUp = document.querySelector('#createChatPopUp')
+const closeChatPopUp = document.querySelector('#closeChatPopUp')
+const partcipantNameInput = document.querySelector('#participant_name')
 
 // LocaL Data
 let localData = {
@@ -27,9 +29,15 @@ let localData = {
 
 // Global Event Listeners
 // Create New Chat Button Listener
+
+const toggleModal = () => createChatPopUp.classList.toggle('is-active')
+
 navbarChatButton.addEventListener('click', event => {
-  console.log(event)
-  createChatPopUp.className += 'is-active'
+  toggleModal()
+})
+
+closeChatPopUp.addEventListener('click', () => {
+  toggleModal()
 })
 
 // Sidebar - Chatroom Names
@@ -90,6 +98,9 @@ const renderMessages = messages => {
 }
 
 // Helper functions
+
+// Refresh
+
 // Clear chat window
 const clearChatWindow = () => {
   chatWindowMessagesEl.innerHTML = `
@@ -102,8 +113,7 @@ const clearChatWindow = () => {
   chatWindow
     .querySelector('.create_new_chat_btn')
     .addEventListener('click', event => {
-      console.log(event)
-      createChatPopUp.className += 'is-active'
+      toggleModal()
     })
 }
 
@@ -145,6 +155,9 @@ const renderChatWindowInput = () => {
       message: messageText
     }
     createMessage(newMessage)
+    chatWindowInput.querySelector('#message_text_input').value = ``
+    chatWindowMessagesEl.innerHTML = ``
+    getChatroomData()
   })
 }
 
@@ -157,6 +170,19 @@ const getChatroomData = () =>
       renderMessages(localData.currentRoomMessages)
       renderChatWindowInput()
     })
+
+// Render partcipant selection dynamically for modal
+
+partcipantNameInput.addEventListener('keyup', () => {
+  console.log(partcipantNameInput.value)
+  let filter = partcipantNameInput.value
+  const filteredNames = localData.otherUsers.filter(
+    user => user.name.toLowerCase().includes(filter.toLowerCase())
+  )
+  updateList(filteredPokemons)
+})
+
+
 
 // Initial call on load
 getUser(currentUserId).then(user => {
