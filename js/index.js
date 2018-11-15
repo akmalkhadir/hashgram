@@ -1,4 +1,4 @@
-let currentUserId = 40
+let currentUserId = 0
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
@@ -29,6 +29,64 @@ let localData = {
   currentRoom: {},
   currentRoomMessages: [],
   otherUsers: []
+}
+
+// Login Window
+
+const renderLoginBox = () => {
+  chatWindowMessagesEl.innerHTML = `
+  <div id="login" class="box">
+  <h2 class="subtitle">Enter your username and password to continue.</h2>
+  <div class="field">
+  <label class="label">Username</label>
+    <p class="control has-icons-left">
+      <input id="username" class="input" type="email" placeholder="Username">
+      <span class="icon is-small is-left">
+        <i class="fas fa-user-secret"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+  <label class="label">Password</label>
+    <p class="control has-icons-left">
+      <input id="password" class="input" type="password" placeholder="Password">
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <a id="login_button" class="button is-primary">Continue</a>
+  </div>
+</div>
+  `
+
+  chatWindow
+    .querySelector('#login_button')
+    .addEventListener('click', event => {
+      let usernameInput = document.querySelector('#username')
+      checkUserExistAndAssignId(usernameInput.value)
+    })
+}
+
+const checkUserExistAndAssignId = usernameInput => {
+  getUsers()
+    .then(users => {
+      let exist = users.map(user => user.username).includes(usernameInput)
+      if (exist) {
+        let foundUser = users.find(user => user.username === usernameInput)
+        currentUserId = foundUser.id
+      } else {
+        createUser({ username: usernameInput })
+        getUsers()
+          .then(users => {
+            currentUserId = users.find(user => user.username === usernameInput).id
+          })
+      }
+    })
 }
 
 // Global Event Listeners
@@ -229,13 +287,15 @@ participantDropdown.addEventListener('change', event => {
 })
 
 // Initial call on load
-getUser(currentUserId).then(user => {
-  localData.currentUser = user
-  localData.chatrooms = [...localData.currentUser.chatrooms]
-  renderChatRoomListItems(localData.chatrooms)
-  clearChatWindow()
-  getUsers().then(users => {
-    let allUsers = users
-    localData.otherUsers = allUsers.filter(user => user.id !== currentUserId)
+const initialLoad = () => {
+  getUser(currentUserId).then(user => {
+    localData.currentUser = user
+    localData.chatrooms = [...localData.currentUser.chatrooms]
+    renderChatRoomListItems(localData.chatrooms)
+    clearChatWindow()
+    getUsers().then(users => {
+      let allUsers = users
+      localData.otherUsers = allUsers.filter(user => user.id !== currentUserId)
+    })
   })
-})
+}
