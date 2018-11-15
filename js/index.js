@@ -3,6 +3,7 @@ const public = document.querySelector("#public-key")
 const messageList = document.querySelector("#messages")
 const messageForm = document.querySelector("#message-form")
 const inputField = document.querySelector("#message-input")
+let secretKey
 
 messageForm.addEventListener("submit", event => {
     event.preventDefault()
