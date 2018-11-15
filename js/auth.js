@@ -1,0 +1,5 @@
+class AUTH {
+    static init () {
+        
+      }
+}

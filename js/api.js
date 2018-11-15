@@ -1,53 +1,79 @@
-// User Calls
-const getUser = userId =>
-  fetch(`http://hashgram-backend.herokuapp.com/api/v1/users/${userId}`)
-    .then(resp => resp.json())
+class API {
+    static init () {
+      this.baseUrl = 'http://hashgram-backend.herokuapp.com/api/v1'
+      this.signinUrl = this.baseUrl + '/signin'
+      this.validateUrl = this.baseUrl + '/validate'
+      this.signupUrl = this.baseUrl + '/signup'
+      this.usersUrl = this.baseUrl + '/users'
+      this.chatroomsUrl = this.baseUrl + '/chatrooms'
+      this.messagesUrl = this.baseUrl + '/messages'
+    }
+  
+    // Authentication Calls
 
-const getUsers = () =>
-  fetch(`http://hashgram-backend.herokuapp.com/api/v1/users/`)
-    .then(resp => resp.json())
+    static signin (body) {
+      return fetch(this.signinUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      }).then(resp => resp.json())
+    }
+  
+    static validate () {
+      const token = localStorage.getItem('token')
+      return fetch(this.validateUrl, {
+        headers: {'Authorization': token}
+      }).then(resp => resp.json())
+    }
+  
+    static signup (body) {
+        return fetch(this.signupUrl, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
 
-const createUser = user =>
-  fetch('http://hashgram-backend.herokuapp.com/api/v1/users/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
+    // User Calls
 
-const deleteUser = userId =>
-  fetch(`http://hashgram-backend.herokuapp.com/api/v1/users/${userId}`, {
-    method: 'DELETE'
-  })
+    static getUser (userId) {
+        fetch(this.usersUrl + `/${userId}`)
+        .then(resp => resp.json())
+    }
 
-// Chatrooms Call
-const getChatroom = roomId =>
-  fetch(`http://hashgram-backend.herokuapp.com/api/v1/chatrooms/${roomId}`)
-    .then(resp => resp.json())
+    static getUsers () {
+        fetch(this.usersUrl)
+        .then(resp => resp.json())
+    }
 
-const createChatroom = chatroom =>
-  fetch('http://hashgram-backend.herokuapp.com/api/v1/chatrooms/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(chatroom)
-  })
+    static deleteUser (userId) {
+        fetch(this.usersUrl + `/${userId}`, {
+            method: "DELETE"
+        })
+    }
 
-const createMessage = message =>
-  fetch('http://hashgram-backend.herokuapp.com/api/v1/messages/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(message)
-  })
+    // Chatrooms Call
 
-let chatroom1 = {
-  name: 'CIA',
-  users: '1,6'
-}
+    static getChatroom (roomId) {
+        fetch(this.chatroomsUrl + `/${roomId}`)
+        .then(resp => resp.json())
+    }
 
-const createUsers = users =>
-  users.forEach(user => createUser(user))
+    static createChatroom (chatroom) {
+        fetch(this.chatroomsUrl, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(chatroom)
+        })
+    }
+
+    static createMessage (message) {
+        fetch(this.messagesUrl, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(message)
+        })
+    }
+  }
+  
+  API.init()

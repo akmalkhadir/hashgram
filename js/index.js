@@ -73,7 +73,7 @@ const renderLoginBox = () => {
 }
 
 const checkUserExistAndAssignId = usernameInput => {
-  getUsers()
+  API.getUsers()
     .then(users => {
       let exist = users.map(user => user.username).includes(usernameInput)
       if (exist) {
