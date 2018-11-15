@@ -1,4 +1,4 @@
-// // Import encryption modules
+// Import encryption modules
 // var nacl = require(['../node_modules/tweetnacl/nacl'])
 // nacl.util = require(['../node_modules/tweetnacl-util/nacl-util'])
 
