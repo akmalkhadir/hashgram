@@ -20,7 +20,7 @@ const createElement = () => {
 
 document.addEventListener("click", event => {
     if (event.target.id === "generateKeys"){
-        generateKey()
+        generateSignKey()
         privateKey.innerHTML = `
             Key: ${secretKey}
         `

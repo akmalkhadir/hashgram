@@ -2,13 +2,13 @@
 // var nacl = require(['../node_modules/tweetnacl/nacl'])
 // nacl.util = require(['../node_modules/tweetnacl-util/nacl-util'])
 
-// Temporary setup for the basics
-const privateKey = document.querySelector("#private-key")
-const public = document.querySelector("#public-key")
-const messageList = document.querySelector("#messages")
-const messageForm = document.querySelector("#message-form")
-const inputField = document.querySelector("#message-input")
-let secretKey
+// // Temporary setup for the basics
+// const privateKey = document.querySelector("#private-key")
+// const public = document.querySelector("#public-key")
+// const messageList = document.querySelector("#messages")
+// const messageForm = document.querySelector("#message-form")
+// const inputField = document.querySelector("#message-input")
+// let secretKey
 
 // const newNonce = () => nacl.randomBytes(nacl.secretbox.nonceLength);
 // const generateSignKey = () => nacl.sign.keyPair();
@@ -57,18 +57,18 @@ const generateSignKey = () => {
 //     inputField.clear()
 // })
 
-document.addEventListener("click", event => {
-    if (event.target.id === "generateKeys"){
-        let signPair = generateSignKey()
-        // let boxPair = generateBoxKey()
-        privateKey.innerHTML = `
-            SignKey Private: ${secretKey}
-        `
-        // public.innerHTML = `
-        //     SignKey Public: ${signPair.publicKey}
-        //     BoxKey Public: ${boxPair.publicKey}
+// document.addEventListener("click", event => {
+//     if (event.target.id === "generateKeys"){
+//         let signPair = generateSignKey()
+//         // let boxPair = generateBoxKey()
+//         privateKey.innerHTML = `
+//             SignKey Private: ${secretKey}
+//         `
+//         // public.innerHTML = `
+//         //     SignKey Public: ${signPair.publicKey}
+//         //     BoxKey Public: ${boxPair.publicKey}
         
-    } else if (event.target.id === "decryptMessage") {
+//     } else if (event.target.id === "decryptMessage") {
 
-    }
-})
+//     }
+// })
