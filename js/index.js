@@ -260,7 +260,8 @@ const getChatroomData = () => {
           localData.currentRoom = chatroom
           localData.currentRoomMessages = chatroom.messages
           renderMessages(localData.currentRoomMessages)
-          chatWindow.scrollTop = chatWindow.scrollHeight
+          let el = document.querySelector("#chat_window_messages")
+          el.scrollTop = el.scrollHeight
         })
   },
   1000
