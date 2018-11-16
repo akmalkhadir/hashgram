@@ -253,13 +253,13 @@ const renderChatWindowInput = () => {
 
 // Fetch chat room messages and render
 const getChatroomData = () =>
-  setInterval(() => {API.getChatroom(localData.currentRoomId)
+  API.getChatroom(localData.currentRoomId)
     .then(chatroom => {
       let conn = API.openConnection()
       console.log(conn)
       localData.currentRoom = chatroom
       localData.currentRoomMessages = chatroom.messages
-      renderMessages(localData.currentRoomMessages)}, 3000)
+      renderMessages(localData.currentRoomMessages)
       renderChatWindowInput();
     })
 
