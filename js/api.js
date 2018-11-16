@@ -60,9 +60,11 @@ class API {
     }
 
     static createChatroom (chatroom) {
-        fetch(this.chatroomsUrl, {
+      const token = sessionStorage.getItem('token')
+        return fetch(this.chatroomsUrl, {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json',
+                      "Authorization": token},
             body: JSON.stringify(chatroom)
         })
     }

@@ -1,8 +1,9 @@
-let currentUserId = 0
+let currentUserId
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
 const sidebar = document.querySelector(".sidebar")
+const logoutBtn = document.querySelector("#logoutBtn")
 
 // Navbar Elements
 const navbarButtons = document.querySelector('#mainNavbar')
@@ -66,27 +67,30 @@ const renderLoginBox = () => {
         <button type="submit" id="login_button" class="button is-primary">Log In</a>
     </div>
     </form>
+    <div class="field">
+        <button id="signup_button" class="button is-link">Sign Up</a>
+    </div>
 </div>
   `
   loginform = document.querySelector("#login-form")
 }
 
-const checkUserExistAndAssignId = usernameInput => {
-  API.getUsers()
-    .then(users => {
-      let exist = users.map(user => user.username).includes(usernameInput)
-      if (exist) {
-        let foundUser = users.find(user => user.username === usernameInput)
-        currentUserId = foundUser.id
-      } else {
-        createUser({ username: usernameInput })
-        getUsers()
-          .then(users => {
-            currentUserId = users.find(user => user.username === usernameInput).id
-          })
-      }
-    })
-}
+// const checkUserExistAndAssignId = usernameInput => {
+//   API.getUsers()
+//     .then(users => {
+//       let exist = users.map(user => user.username).includes(usernameInput)
+//       if (exist) {
+//         let foundUser = users.find(user => user.username === usernameInput)
+//         currentUserId = sessionStorage/
+//       } else {
+//         createUser({ username: usernameInput })
+//         getUsers()
+//           .then(users => {
+//             currentUserId = users.find(user => user.username === usernameInput).id
+//           })
+//       }
+//     })
+// }
 
 // Global Event Listeners
 // Create New Chat Button Listener
@@ -103,20 +107,20 @@ closeChatPopUp.addEventListener('click', () => {
 
 submitNewChat.addEventListener('click', event => {
   let chatNameInputValue = chatNameInput.value
-  let otherParticipantId = localData.otherUsers.find(user => user.name === participantDropdown.value).id
+  let otherParticipantId = localData.otherUsers.find(user => user.username === participantDropdown.value).id
   let newChatroom = {
     name: chatNameInputValue,
-    users: `${currentUserId}, ${otherParticipantId}`
+    users: `${sessionStorage.id}, ${otherParticipantId}`
   }
-  createChatroom(newChatroom)
+  API.createChatroom(newChatroom)
     .then(() => {
-      getUser(currentUserId).then(user => {
+      API.getUser(sessionStorage.id).then(user => {
         localData.currentUser = user
         localData.chatrooms = [...localData.currentUser.chatrooms]
 
         renderChatRoomListItems(localData.chatrooms)
         localData.currentRoomId = localData.chatrooms.slice(-1)[0].id
-        getChatroomData()
+        API.getChatroomData()
         toggleModal()
       })
     })
@@ -209,7 +213,7 @@ const renderChatWindowInput = () => {
 
     <figure class="media-left">
       <p class="image is-64x64">
-        <img src="https://api.adorable.io/avatars/128/${currentUserId}@adorable.io.png">
+        <img src="https://api.adorable.io/avatars/128/${sessionStorage.id}@adorable.io.png">
       </p>
     </figure>
 
@@ -231,9 +235,9 @@ const renderChatWindowInput = () => {
 
   chatWindowInput.querySelector('#send_button').addEventListener('click', event => {
     let messageText = chatWindowInput.querySelector('#message_text_input').value
-    let receiverId = localData.currentRoom.users.find(user => user.id !== currentUserId).id
+    let receiverId = localData.currentRoom.users.find(user => user.id !== sessionStorage.id).id
     let newMessage = {
-      sender: currentUserId,
+      sender: sessionStorage.id,
       receiver: receiverId,
       chatroom: localData.currentRoomId,
       message: messageText
@@ -263,15 +267,15 @@ participantNameInput.addEventListener('keyup', () => {
   console.log(participantNameInput.value)
   let filter = participantNameInput.value
   const filteredNames = localData.otherUsers.filter(
-    user => user.name.toLowerCase().includes(filter.toLowerCase())
-  ).map(user => user.name)
+    user => user.username.toLowerCase().includes(filter.toLowerCase())
+  ).map(user => user.username)
   renderDropdown(filteredNames)
 })
 
 const renderDropdown = (names) => {
   participantDropdown.innerHTML = ``
-  names.forEach(name => {
-    addNameToList(name)
+  names.forEach(username => {
+    addNameToList(username)
   })
 }
 
@@ -285,20 +289,23 @@ participantDropdown.addEventListener('change', event => {
   let chosenParticipantName = event.target.value
 })
 
+const toggleSidebars = () => {
+    navbarChatButton.classList.toggle("is-hidden")
+    sidebar.classList.toggle("is-hidden")
+    lock.classList.toggle("is-hidden")
+}
+
 // Initial call on load
 const initialLoad = () => {
   API.getUser(sessionStorage.id).then(user => {
-      navbarChatButton.classList.toggle("is-hidden")
-      sidebar.classList.toggle("is-hidden")
-      lock.classList.toggle("is-hidden")
-      
+    toggleSidebars()
     localData.currentUser = user
     localData.chatrooms = [...localData.currentUser.chatrooms]
     renderChatRoomListItems(localData.chatrooms)
     clearChatWindow()
     API.getUsers().then(users => {
       let allUsers = users
-      localData.otherUsers = allUsers.filter(user => user.id !== currentUserId)
+      localData.otherUsers = allUsers.filter(user => user.id !== sessionStorage.id)
     })
   })
 }
@@ -319,12 +326,42 @@ const attachEventListener = () => {
                 loginform.reset()
                 sessionStorage.setItem("token", resp.token)
                 sessionStorage.setItem("id", resp.id)
+                initialLoad()
             }
-        }).then(() => initialLoad())
+        })
+    })
+
+    document
+    .addEventListener("click", event => {
+        if (event.target.id === "logoutBtn") {
+            toggleSidebars()
+            sessionStorage.clear()
+            renderLoginBox()
+        } else if (event.target.id === "signup_button"){
+            let body = {
+                username: loginform.username.value,
+                password: loginform.password.value
+            }
+            API.signup(body)
+            .then(resp => {
+                if (resp.error) {
+                    alert(resp.error)
+                } else {
+                    loginform.reset()
+                    sessionStorage.setItem("token", resp.token)
+                    sessionStorage.setItem("id", resp.id)
+                    initialLoad()
+                }
+            })
+        }
     })
 }
 
-renderLoginBox()
+
+if (!sessionStorage.token){
+    renderLoginBox()
+} else {initialLoad()}
+
 
 attachEventListener()
 
