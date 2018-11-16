@@ -259,8 +259,8 @@ const getChatroomData = () =>
       console.log(conn)
       localData.currentRoom = chatroom
       localData.currentRoomMessages = chatroom.messages
-      renderMessages(localData.currentRoomMessages)
-      renderChatWindowInput()}, 1000);
+      renderMessages(localData.currentRoomMessages)}, 1000)
+      renderChatWindowInput();
     })
 
 // Render participant selection dynamically for modal
