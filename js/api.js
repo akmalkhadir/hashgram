@@ -79,7 +79,7 @@ class API {
     }
 
     static openConnection () {
-      return new WebSocket(this.connection)
+      return new WebSocket(this.connection, "ChatroomChannel")
     }
   }
   

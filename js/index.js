@@ -1,4 +1,5 @@
 let currentUserId
+let conn
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
@@ -244,6 +245,7 @@ const renderChatWindowInput = () => {
     }
     API.createMessage(newMessage)
       .then(() => {
+          conn.send(newMessage)
         chatWindowInput.querySelector('#message_text_input').value = ``
         chatWindowMessagesEl.innerHTML = ``
         getChatroomData()
@@ -255,8 +257,6 @@ const renderChatWindowInput = () => {
 const getChatroomData = () =>
   API.getChatroom(localData.currentRoomId)
     .then(chatroom => {
-      let conn = API.openConnection()
-      console.log(conn)
       localData.currentRoom = chatroom
       localData.currentRoomMessages = chatroom.messages
       renderMessages(localData.currentRoomMessages)
@@ -266,7 +266,6 @@ const getChatroomData = () =>
 // Render participant selection dynamically for modal
 
 participantNameInput.addEventListener('keyup', () => {
-  console.log(participantNameInput.value)
   let filter = participantNameInput.value
   const filteredNames = localData.otherUsers.filter(
     user => user.username.toLowerCase().includes(filter.toLowerCase())
@@ -296,6 +295,10 @@ const toggleSidebars = () => {
     sidebar.classList.toggle("is-hidden")
     lock.classList.toggle("is-hidden")
 }
+ 
+const conne = () ={
+    conn = API.openConnection()
+}
 
 // Initial call on load
 const initialLoad = () => {
@@ -308,6 +311,7 @@ const initialLoad = () => {
     API.getUsers().then(users => {
       let allUsers = users
       localData.otherUsers = allUsers.filter(user => user.id !== sessionStorage.id)
+      conne()
     })
   })
 }
