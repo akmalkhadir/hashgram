@@ -245,7 +245,6 @@ const renderChatWindowInput = () => {
     }
     API.createMessage(newMessage)
       .then(() => {
-          conn.send(newMessage)
         chatWindowInput.querySelector('#message_text_input').value = ``
         chatWindowMessagesEl.innerHTML = ``
         getChatroomData()
@@ -254,14 +253,18 @@ const renderChatWindowInput = () => {
 }
 
 // Fetch chat room messages and render
-const getChatroomData = () =>
-  API.getChatroom(localData.currentRoomId)
-    .then(chatroom => {
-      localData.currentRoom = chatroom
-      localData.currentRoomMessages = chatroom.messages
-      renderMessages(localData.currentRoomMessages)
-      renderChatWindowInput();
-    })
+const getChatroomData = () => {
+  setInterval(() => {
+      API.getChatroom(localData.currentRoomId)
+        .then(chatroom => {
+          localData.currentRoom = chatroom
+          localData.currentRoomMessages = chatroom.messages
+          renderMessages(localData.currentRoomMessages)
+        })
+  },
+  1000
+  )  
+}
 
 // Render participant selection dynamically for modal
 
