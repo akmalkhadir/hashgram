@@ -120,7 +120,7 @@ submitNewChat.addEventListener('click', event => {
 
         renderChatRoomListItems(localData.chatrooms)
         localData.currentRoomId = localData.chatrooms.slice(-1)[0].id
-        API.getChatroomData()
+        getChatroomData()
         toggleModal()
       })
     })
@@ -242,7 +242,7 @@ const renderChatWindowInput = () => {
       chatroom: localData.currentRoomId,
       message: messageText
     }
-    createMessage(newMessage)
+    API.createMessage(newMessage)
       .then(() => {
         chatWindowInput.querySelector('#message_text_input').value = ``
         chatWindowMessagesEl.innerHTML = ``
@@ -253,8 +253,9 @@ const renderChatWindowInput = () => {
 
 // Fetch chat room messages and render
 const getChatroomData = () =>
-  getChatroom(localData.currentRoomId)
+  API.getChatroom(localData.currentRoomId)
     .then(chatroom => {
+      API.openConnection()
       localData.currentRoom = chatroom
       localData.currentRoomMessages = chatroom.messages
       renderMessages(localData.currentRoomMessages)
@@ -311,8 +312,8 @@ const initialLoad = () => {
 }
 
 const attachEventListener = () => {
-    loginform
-    .addEventListener('submit', event => {
+    if(loginform){
+    loginform.addEventListener('submit', event => {
         event.preventDefault()
         let body = {
             username: loginform.username.value,
@@ -329,7 +330,7 @@ const attachEventListener = () => {
                 initialLoad()
             }
         })
-    })
+    })}
 
     document
     .addEventListener("click", event => {

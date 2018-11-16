@@ -7,6 +7,7 @@ class API {
       this.usersUrl = this.baseUrl + '/users'
       this.chatroomsUrl = this.baseUrl + '/chatrooms'
       this.messagesUrl = this.baseUrl + '/messages'
+      this.connection = "https://hashgram-backend.herokuapp.com/cable"
     }
   
     // Authentication Calls
@@ -55,7 +56,7 @@ class API {
     // Chatrooms Call
 
     static getChatroom (roomId) {
-        fetch(this.chatroomsUrl + `/${roomId}`)
+        return fetch(this.chatroomsUrl + `/${roomId}`)
         .then(resp => resp.json())
     }
 
@@ -70,11 +71,18 @@ class API {
     }
 
     static createMessage (message) {
-        fetch(this.messagesUrl, {
+        return fetch(this.messagesUrl, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(message)
         })
+    }
+
+    static openConnection () {
+      fetch(this.connection, {
+        "command":"subscribe".
+        "identifier": {"channel": "ChatroomsChannel"}
+      })
     }
   }
   
