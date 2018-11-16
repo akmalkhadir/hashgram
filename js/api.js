@@ -7,7 +7,7 @@ class API {
       this.usersUrl = this.baseUrl + '/users'
       this.chatroomsUrl = this.baseUrl + '/chatrooms'
       this.messagesUrl = this.baseUrl + '/messages'
-      this.connection = "https://hashgram-backend.herokuapp.com/cable"
+      this.connection = "ws://hashgram-backend.herokuapp.com/cable"
     }
   
     // Authentication Calls
