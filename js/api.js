@@ -80,7 +80,7 @@ class API {
 
     static openConnection () {
       fetch(this.connection, {
-        "command":"subscribe".
+        "command":"subscribe",
         "identifier": {"channel": "ChatroomsChannel"}
       })
     }
