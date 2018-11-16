@@ -370,6 +370,3 @@ if (!sessionStorage.token){
 
 
 attachEventListener()
-
-
-
