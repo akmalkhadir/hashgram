@@ -299,9 +299,7 @@ const toggleSidebars = () => {
     lock.classList.toggle("is-hidden")
 }
  
-const conne = () ={
-    conn = API.openConnection()
-}
+
 
 // Initial call on load
 const initialLoad = () => {
@@ -314,7 +312,6 @@ const initialLoad = () => {
     API.getUsers().then(users => {
       let allUsers = users
       localData.otherUsers = allUsers.filter(user => user.id !== sessionStorage.id)
-      conne()
     })
   })
 }
