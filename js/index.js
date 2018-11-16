@@ -255,7 +255,8 @@ const renderChatWindowInput = () => {
 const getChatroomData = () =>
   API.getChatroom(localData.currentRoomId)
     .then(chatroom => {
-      API.openConnection()
+      let conn = API.openConnection()
+      console.log(conn)
       localData.currentRoom = chatroom
       localData.currentRoomMessages = chatroom.messages
       renderMessages(localData.currentRoomMessages)
