@@ -312,7 +312,9 @@ const initialLoad = () => {
     API.getUsers().then(users => {
       let allUsers = users
       localData.otherUsers = allUsers.filter(user => user.id !== sessionStorage.id)
+    
     })
+    renderChatWindowInput()
   })
 }
 
