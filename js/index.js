@@ -307,8 +307,8 @@ const attachEventListener = () => {
         }
         API.signin(body)
         .then(resp => {
-            localStorage.setItem("token", resp.token)
-            localStorage.setItem("username", resp.username)
+            sessionStorage.setItem("token", resp.token)
+            sessionStorage.setItem("username", resp.username)
         })
         loginform.reset()
     })

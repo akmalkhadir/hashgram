@@ -77,3 +77,10 @@ class API {
   }
   
   API.init()
+
+
+//   const generateSignKey = () => {
+//     return fetch("https://us-central1-hashgram-222609.cloudfunctions.net/generateSignKey")
+//     .then(res=> res.json())
+//     .then((res) => secretKey = Object.values(res))
+// }
