@@ -1,6 +1,6 @@
 class API {
     static init () {
-      this.baseUrl = 'http://hashgram-backend.herokuapp.com/api/v1'
+      this.baseUrl = 'https://hashgram-backend.herokuapp.com/api/v1'
       this.signinUrl = this.baseUrl + '/signin'
       this.validateUrl = this.baseUrl + '/validate'
       this.signupUrl = this.baseUrl + '/signup'
