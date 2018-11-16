@@ -79,10 +79,7 @@ class API {
     }
 
     static openConnection () {
-      fetch(this.connection, {
-        "command":"subscribe",
-        "identifier": {"channel": "ChatroomsChannel"}
-      })
+      return new WebSocket(this.connection)
     }
   }
   
