@@ -310,6 +310,7 @@ const attachEventListener = () => {
             localStorage.setItem("token", resp.token)
             localStorage.setItem("username", resp.username)
         })
+        loginform.reset()
     })
 }
 
