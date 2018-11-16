@@ -260,6 +260,7 @@ const getChatroomData = () => {
           localData.currentRoom = chatroom
           localData.currentRoomMessages = chatroom.messages
           renderMessages(localData.currentRoomMessages)
+          chatWindow.scrollTop = chatWindow.scrollHeight
         })
   },
   1000
