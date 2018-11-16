@@ -20,6 +20,7 @@ const participantNameInput = document.querySelector('#participant_name')
 const participantDropdown = document.querySelector('#participant_dropdown')
 const chatNameInput = document.querySelector('#chat_name_input')
 const submitNewChat = createChatPopUp.querySelector('#submit_new_chat')
+const loginform = document.querySelector("#login-form")
 
 // LocaL Data
 let localData = {
@@ -37,38 +38,46 @@ const renderLoginBox = () => {
   chatWindowMessagesEl.innerHTML = `
   <div id="login" class="box">
   <h2 class="subtitle">Enter your username and password to continue.</h2>
-  <div class="field">
-  <label class="label">Username</label>
-    <p class="control has-icons-left">
-      <input id="username" class="input" type="email" placeholder="Username">
-      <span class="icon is-small is-left">
-        <i class="fas fa-user-secret"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-  <label class="label">Password</label>
-    <p class="control has-icons-left">
-      <input id="password" class="input" type="password" placeholder="Password">
-      <span class="icon is-small is-left">
-        <i class="fas fa-lock"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-    <a id="login_button" class="button is-primary">Continue</a>
-  </div>
+  <form id="login-form">
+    <div class="field">
+    <label class="label">Username</label>
+        <p class="control has-icons-left">
+        <input id="username" name="username" class="input" type="email" placeholder="Username">
+        <span class="icon is-small is-left">
+            <i class="fas fa-user-secret"></i>
+        </span>
+        <span class="icon is-small is-right">
+            <i class="fas"></i>
+        </span>
+        </p>
+    </div>
+    <div class="field">
+    <label class="label">Password</label>
+        <p class="control has-icons-left">
+        <input id="password" name="password" class="input" type="password" placeholder="Password">
+        <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+        </span>
+        </p>
+    </div>
+    <div class="field">
+        <button type="submit" id="login_button" class="button is-primary">Log In</a>
+    </div>
+    </form>
 </div>
   `
 
-  chatWindow
-    .querySelector('#login_button')
-    .addEventListener('click', event => {
-      let usernameInput = document.querySelector('#username')
-      checkUserExistAndAssignId(usernameInput.value)
+  loginform
+    .addEventListener('submit', event => {
+        event.preventDefault()
+        let body = {
+            username: loginform.username.value,
+            password: loginform.password.value
+        }
+        API.signin(body)
+        .then(resp => {
+            localStorage.addItem()
+        })
     })
 }
 
@@ -299,3 +308,5 @@ const initialLoad = () => {
     })
   })
 }
+
+renderLoginBox()
