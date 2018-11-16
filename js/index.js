@@ -20,7 +20,7 @@ const participantNameInput = document.querySelector('#participant_name')
 const participantDropdown = document.querySelector('#participant_dropdown')
 const chatNameInput = document.querySelector('#chat_name_input')
 const submitNewChat = createChatPopUp.querySelector('#submit_new_chat')
-const loginform = document.querySelector("#login-form")
+let loginform
 
 // LocaL Data
 let localData = {
@@ -42,7 +42,7 @@ const renderLoginBox = () => {
     <div class="field">
     <label class="label">Username</label>
         <p class="control has-icons-left">
-        <input id="username" name="username" class="input" type="email" placeholder="Username">
+        <input id="username" name="username" class="input" type="text" placeholder="Username">
         <span class="icon is-small is-left">
             <i class="fas fa-user-secret"></i>
         </span>
@@ -66,19 +66,7 @@ const renderLoginBox = () => {
     </form>
 </div>
   `
-
-  loginform
-    .addEventListener('submit', event => {
-        event.preventDefault()
-        let body = {
-            username: loginform.username.value,
-            password: loginform.password.value
-        }
-        API.signin(body)
-        .then(resp => {
-            localStorage.addItem()
-        })
-    })
+  loginform = document.querySelector("#login-form")
 }
 
 const checkUserExistAndAssignId = usernameInput => {
@@ -309,4 +297,25 @@ const initialLoad = () => {
   })
 }
 
+const attachEventListener = () => {
+    loginform
+    .addEventListener('submit', event => {
+        event.preventDefault()
+        let body = {
+            username: loginform.username.value,
+            password: loginform.password.value
+        }
+        API.signin(body)
+        .then(resp => {
+            localStorage.setItem("token", resp.token)
+            localStorage.setItem("username", resp.username)
+        })
+    })
+}
+
 renderLoginBox()
+
+attachEventListener()
+
+
+
