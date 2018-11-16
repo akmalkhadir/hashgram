@@ -37,12 +37,12 @@ class API {
     // User Calls
 
     static getUser (userId) {
-        fetch(this.usersUrl + `/${userId}`)
+        return fetch(this.usersUrl + `/${userId}`)
         .then(resp => resp.json())
     }
 
     static getUsers () {
-        fetch(this.usersUrl)
+        return fetch(this.usersUrl)
         .then(resp => resp.json())
     }
 

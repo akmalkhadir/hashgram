@@ -2,6 +2,7 @@ let currentUserId = 0
 
 // Sidebar Elements
 const chatRoomListEl = document.querySelector('.sidebar_chatroom_list')
+const sidebar = document.querySelector(".sidebar")
 
 // Navbar Elements
 const navbarButtons = document.querySelector('#mainNavbar')
@@ -20,6 +21,7 @@ const participantNameInput = document.querySelector('#participant_name')
 const participantDropdown = document.querySelector('#participant_dropdown')
 const chatNameInput = document.querySelector('#chat_name_input')
 const submitNewChat = createChatPopUp.querySelector('#submit_new_chat')
+const lock = document.querySelector("#lock")
 let loginform
 
 // LocaL Data
@@ -285,12 +287,16 @@ participantDropdown.addEventListener('change', event => {
 
 // Initial call on load
 const initialLoad = () => {
-  getUser(currentUserId).then(user => {
+  API.getUser(sessionStorage.id).then(user => {
+      navbarChatButton.classList.toggle("is-hidden")
+      sidebar.classList.toggle("is-hidden")
+      lock.classList.toggle("is-hidden")
+      
     localData.currentUser = user
     localData.chatrooms = [...localData.currentUser.chatrooms]
     renderChatRoomListItems(localData.chatrooms)
     clearChatWindow()
-    getUsers().then(users => {
+    API.getUsers().then(users => {
       let allUsers = users
       localData.otherUsers = allUsers.filter(user => user.id !== currentUserId)
     })
@@ -307,10 +313,14 @@ const attachEventListener = () => {
         }
         API.signin(body)
         .then(resp => {
-            sessionStorage.setItem("token", resp.token)
-            sessionStorage.setItem("username", resp.username)
-        })
-        loginform.reset()
+            if (resp.error) {
+                alert(resp.error)
+            } else {
+                loginform.reset()
+                sessionStorage.setItem("token", resp.token)
+                sessionStorage.setItem("id", resp.id)
+            }
+        }).then(() => initialLoad())
     })
 }
 
